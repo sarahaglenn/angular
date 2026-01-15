@@ -1,1 +1,16 @@
-<p>contact-detail works!</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">{{ contact.name }}</h4>
+    <img
+    [src]="contact.imageUrl"
+    alt="{{ contact.name}}"
+    class="img-responsive"
+    style="max-height: 75px;">
+    <a class="btn btn-primary" href="#">Edit</a>
+    <a class="btn btn-danger" href="#">Delete</a>
+  </div>
+  <div class="panel-body">
+    <p><strong>Email:</strong> {{ contact.email }}</p>
+    <p><strong>Phone:</strong> {{ contact.phone }}</p>
+    </div>
+</div>
