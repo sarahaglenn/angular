@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { Document } from './document.model';
 @Component({
   selector: 'cms-documents',
   standalone: false,
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './documents.component.css'
 })
 export class DocumentsComponent {
-
+  selectedDocument: Document;
 }
