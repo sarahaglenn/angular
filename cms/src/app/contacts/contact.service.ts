@@ -18,12 +18,8 @@ export class ContactService {
     return this.contacts.slice();
   }
   getContact(id:string): Contact {
-    this.contacts.forEach((contact: Contact) => {
-      if (contact.id === id)
-      {
-        return contact
-      }
-    })
-    return null
+    return this.contacts.find(
+      (contact: Contact) => contact.id === id
+    ) || null;
   }
 }

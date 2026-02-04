@@ -18,13 +18,8 @@ export class DocumentService {
     return this.documents.slice();
   }
   getDocument(id:string): Document {
-
-    this.documents.forEach((document: Document) => {
-      if (document.id === id)
-      {
-        return document;
-      }
-    })
-    return null;
+    return this.documents.find(
+      (document: Document) =>
+      document.id === id) || null;
   }
 }
