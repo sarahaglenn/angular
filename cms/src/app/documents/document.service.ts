@@ -49,6 +49,20 @@ export class DocumentService {
     this.documentListChangedEvent.next(documentsListClone);
   }
 
+  updateDocument(originalDocument: Document,
+                newDocument: Document
+  ) {
+    if (!originalDocument || !newDocument) return;
+
+    const pos = this.documents.indexOf(originalDocument);
+    if (pos < 0) return;
+
+    newDocument.id = originalDocument.id;
+    this.documents[pos] = newDocument;
+    const documentsListClone = this.documents.slice();
+    this.documentListChangedEvent.next(documentsListClone);
+  }
+
   getMaxId(): number {
     let maxId = 0;
     this.documents.forEach( (document) => {
