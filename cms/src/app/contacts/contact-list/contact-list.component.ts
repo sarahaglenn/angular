@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.css',
 })
-export class ContactListComponent implements OnInit, OnDestroy{
+export class ContactListComponent implements OnInit, OnDestroy {
   contacts: Contact[] = [];
   subscription: Subscription;
 
@@ -18,14 +18,15 @@ export class ContactListComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.contacts = this.contactService.getContacts();
-    this.subscription = this.contactService.contactListChangedEvent
-    .subscribe(
+    this.subscription = this.contactService.contactListChangedEvent.subscribe(
       (contactsList: Contact[]) => {
         this.contacts = contactsList;
-      }
-    )
+      },
+    );
   }
 
+  alwaysFalse = () => false;
+  
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

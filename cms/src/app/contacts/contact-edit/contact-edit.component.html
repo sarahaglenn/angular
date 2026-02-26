@@ -68,11 +68,20 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row"
+          cdkDropList
+          id="groupList"
+          [cdkDropListData]="groupContacts"
+          [cdkDropListConnectedTo]="['contactsList']"
+          [cdkDropListEnterPredicate]="canAcceptContact"
+          (cdkDropListDropped)="onDrop($event)">
         <div class="col-sm-12 form-group">
           <label for="groupList">Group Contacts:</label>
 
-          <div class="row" id="groupList" style="min-height: 3rem;">
+          <div
+            class="row"
+            id="groupList"
+            style="min-height: 3rem;">
 
             <div *ngFor="let contact of groupContacts; let i = index">
               <div>
