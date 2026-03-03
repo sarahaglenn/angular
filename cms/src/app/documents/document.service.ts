@@ -3,23 +3,39 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Document } from './document.model';
 import { MOCKDOCUMENTS } from './mockdocuments';
 import { Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentService {
-  private documents: Document[];
+  private documents: Document[] = [];
   documentListChangedEvent = new Subject<Document[]>();
   documentSelectedEvent = new EventEmitter<Document>();
   maxDocumentId: number;
 
-  constructor() {
-    this.documents = MOCKDOCUMENTS;
-    this.maxDocumentId = this.getMaxId();
-  }
+  constructor(private http: HttpClient) { }
 
-  getDocuments(): Document[] {
-    return this.documents.slice();
+  getDocuments() {
+    (this.http
+      .get<Document[]>('https://contact-manag-sys-default-rtdb.firebaseio.com/documents.json'))
+      .subscribe(
+        (documents: Document[]) => {
+          this.documents = documents || [];
+
+          this.maxDocumentId = this.getMaxId();
+
+          this.documents.sort((a, b) => {
+            if (a.name < b.name) return -1;
+            if (a.name > b.name) return 1;
+            return 0;
+          });
+          this.documentListChangedEvent.next(this.documents.slice())
+        },
+        (error: any) => {
+          console.log(error.message);
+        },
+      );
   }
 
   getDocument(id:string): Document {
