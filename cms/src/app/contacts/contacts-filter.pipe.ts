@@ -3,21 +3,17 @@ import { Contact } from './contact.model';
 
 @Pipe({
   name: 'contactsFilter',
-  standalone: false
+  standalone: false,
 })
 export class ContactsFilterPipe implements PipeTransform {
 
-  transform(contacts: Contact[], term: string): any {
-    let filteredContacts: Contact[] = [];
-    if (term && term.length > 0) {
-      (contact: Contact) => {
-        contact.name.toLowerCase().includes(term.toLowerCase());
-      }
-    }
-    if (filteredContacts.length < 1) {
+  transform(contacts: Contact[], term: string): Contact[] {
+    if (!term || term.length === 0) {
       return contacts;
     }
-    return filteredContacts;
+    const filteredContacts = contacts.filter((contact: Contact) => {
+      return contact.name.toLowerCase().includes(term.toLowerCase());
+    });
+    return filteredContacts.length > 0 ? filteredContacts : [];
   }
-
 }

@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class ContactListComponent implements OnInit, OnDestroy {
   contacts: Contact[] = [];
   subscription: Subscription;
+  term: string;
 
   constructor(private contactService: ContactService) {}
 
@@ -26,7 +27,11 @@ export class ContactListComponent implements OnInit, OnDestroy {
   }
 
   alwaysFalse = () => false;
-  
+
+  search (value: string) {
+    this.term = value;
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
