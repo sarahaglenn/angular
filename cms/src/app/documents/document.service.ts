@@ -1,7 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 import { Document } from './document.model';
-import { MOCKDOCUMENTS } from './mockdocuments';
 import { Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
