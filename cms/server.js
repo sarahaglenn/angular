@@ -8,6 +8,7 @@ const logger = require('morgan');
 
 // import the routing file to handle the default (index) route
 const index = require('./server/routes/app');
+const routes = require('./server/routes');
 
 const app = express(); // create an instance of express
 
@@ -40,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'dist/cms/browser')));
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
+app.use('/', routes);
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {
