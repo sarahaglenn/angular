@@ -1,14 +1,25 @@
 // Get dependencies
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
 // import the routing file to handle the default (index) route
 const index = require('./server/routes/app');
 const routes = require('./server/routes');
+
+// establish a connection to the mongo database
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+    console.log('Connected to database!');
+})
+.catch((err) => {
+    console.log('Connection failed: ' + err);
+})
 
 const app = express(); // create an instance of express
 

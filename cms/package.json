@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dev": "nodemon server.js"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +22,12 @@
     "body-parser": "^2.2.2",
     "bootstrap": "^3.4.1",
     "cookie-parser": "^1.4.7",
+    "dotenv": "^17.3.1",
     "express": "^4.22.1",
+    "mongoose": "^9.3.0",
+    "mongoose-unique-validator": "^6.1.0",
     "morgan": "^1.10.1",
+    "nodemon": "^3.1.14",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
