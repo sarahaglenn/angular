@@ -9,4 +9,4 @@ const contactSchema = mongoose.Schema({
   group: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Contact' }]
 })
 
-model.exports = mongoose.model('Contact', contactSchema);
+module.exports = mongoose.model('Contact', contactSchema);

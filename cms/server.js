@@ -15,6 +15,7 @@ const routes = require('./server/routes');
 // establish a connection to the mongo database
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
+  console.log(process.env.MONGODB_URI)
     console.log('Connected to database!');
 })
 .catch((err) => {

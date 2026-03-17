@@ -8,4 +8,4 @@ const documentSchema = mongoose.Schema({
   children: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Document' }]
 })
 
-model.exports = mongoose.model('Document', documentSchema);
+module.exports = mongoose.model('Document', documentSchema);

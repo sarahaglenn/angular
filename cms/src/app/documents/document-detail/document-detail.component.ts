@@ -31,6 +31,11 @@ export class DocumentDetailComponent implements OnInit{
         this.id =params['id'];
         this.document = this.documentService.getDocument(this.id);
       }
+    );
+    this.documentService.documentListChangedEvent.subscribe(
+      (documents: Document[]) => {
+        this.document = this.documentService.getDocument(this.id);
+      }
     )
   }
 
