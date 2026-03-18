@@ -11,7 +11,6 @@ export class DocumentService {
   private documents: Document[] = [];
   documentListChangedEvent = new Subject<Document[]>();
   documentSelectedEvent = new EventEmitter<Document>();
-  // maxDocumentId: number;
 
   constructor(private http: HttpClient) {}
 
@@ -51,15 +50,16 @@ export class DocumentService {
     );
   }
 
-  addDocument(document: Document) {
-    if (!document) return;
-    document.id = '';
+  addDocument(newDocument: Document) {
+    if (!newDocument) return;
+    newDocument.id = '';
+
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
       .post<{
         message: String;
         document: Document;
-      }>('http://localhost:3000/documents', document, { headers: headers })
+      }>('http://localhost:3000/documents', newDocument, { headers: headers })
       .subscribe((responseData) => {
         this.documents.push(responseData.document);
         this.sortAndSend();
@@ -74,6 +74,7 @@ export class DocumentService {
 
     newDocument.id = originalDocument.id;
     newDocument._id = originalDocument._id;
+
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     this.http.put('http://localhost:3000/documents/' + originalDocument.id,
       newDocument, {headers: headers })

@@ -1,53 +1,28 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 import { Contact } from './contact.model';
-import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { map, Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
   private contacts: Contact[] = [];
-  contactSelectedEvent = new EventEmitter<Contact>();
   contactListChangedEvent = new Subject<Contact[]>();
-  maxContactId: number;
+  contactSelectedEvent = new EventEmitter<Contact>();
 
   constructor(private http: HttpClient) {}
 
   getContacts() {
-    this.http
-      .get<
-        Contact[]
-      >('https://contact-manag-sys-default-rtdb.firebaseio.com/contacts.json')
-      .subscribe(
-        (contacts: Contact[]) => {
-          this.contacts = contacts || [];
-
-          this.maxContactId = this.getMaxId();
-
-          this.contacts.sort((a, b) => {
-            if (a.name < b.name) return -1;
-            if (a.name > b.name) return 1;
-            return 0;
-          });
-          this.contactListChangedEvent.next(this.contacts.slice());
-        },
-        (error: any) => {
-          console.log(error.message);
-        },
+    return this.http.get<{message: String, contacts: Contact[]}>('http://localhost:3000/contacts')
+      .pipe(
+        map(response => {
+          this.contacts = response.contacts || [];
+          this.sortAndSend();
+          return this.contacts;
+        })
       );
-  }
-
-  storeContacts() {
-    this.http
-      .put(
-        'https://contact-manag-sys-default-rtdb.firebaseio.com/contacts.json',
-        this.contacts,
-      )
-      .subscribe(() => {
-        this.contactListChangedEvent.next(this.contacts.slice());
-      });
   }
 
   getContact(id: string): Contact {
@@ -58,40 +33,59 @@ export class ContactService {
     if (!contact) {
       return;
     }
-    const pos = this.contacts.indexOf(contact);
+    const pos = this.contacts.findIndex((c) => c.id === contact.id);
     if (pos < 0) {
       return;
     }
-    this.contacts.splice(pos, 1);
-    this.storeContacts();
+    this.http
+      .delete('http://localhost:3000/contacts/' + contact.id)
+      .subscribe((response: any) => {
+        this.contacts.splice(pos, 1);
+        this.sortAndSend();
+      });
   }
 
   addContact(newContact: Contact) {
     if (!newContact) return;
+    newContact.id = '';
 
-    this.maxContactId++;
-    newContact.id = String(this.maxContactId);
-    this.contacts.push(newContact);
-    this.storeContacts();
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http
+      .post<{
+        message: String;
+        contact: Contact;
+      }>('http://localhost:3000/contacts', newContact, { headers: headers })
+      .subscribe((responseData) => {
+        this.contacts.push(responseData.contact);
+        this.sortAndSend();
+      });
   }
 
   updateContact(originalContact: Contact, newContact: Contact) {
     if (!originalContact || !newContact) return;
 
-    const pos = this.contacts.indexOf(originalContact);
+    const pos = this.contacts.findIndex(c => c.id === originalContact.id);
     if (pos < 0) return;
+
     newContact.id = originalContact.id;
-    this.contacts[pos] = newContact;
-    this.storeContacts();
+    newContact._id = originalContact._id;
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http
+      .put('http://localhost:3000/contacts/' + originalContact.id,
+        newContact, { headers: headers })
+      .subscribe((response: any) => {
+        this.contacts[pos] = newContact;
+        this.sortAndSend();
+        this.contactSelectedEvent.emit(newContact);
+      });
   }
 
-  getMaxId(): number {
-    let maxId = 0;
-    this.contacts.forEach((contact) => {
-      if (parseInt(contact.id) > maxId) {
-        maxId = parseInt(contact.id);
-      }
-    });
-    return maxId;
+  sortAndSend() {
+    this.contacts.sort((a, b) =>
+      a.name > b.name ? 1 : b.name > a.name ? -1 : 0,
+    );
+
+    this.contactListChangedEvent.next(this.contacts.slice());
   }
 }

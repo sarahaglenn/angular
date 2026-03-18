@@ -57,11 +57,11 @@ export class ContactEditComponent implements OnInit {
     );
     if (this.editMode) {
       this.contactService.updateContact(this.originalContact, newContact);
-      this.onCancel();
     } else {
       this.contactService.addContact(newContact);
       this.router.navigate(['../', newContact.id], { relativeTo: this.route});
     }
+      this.onCancel();
   }
 
   onRemoveItem(index: number) {

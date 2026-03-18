@@ -20,7 +20,6 @@ export class MessageListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.contactService.getContacts();
     this.subscription = this.messageService.messageChangedEvent
     .subscribe(
       (messagesList: Message[]) => {
