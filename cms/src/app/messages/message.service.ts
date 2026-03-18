@@ -50,7 +50,7 @@ export class MessageService {
 
   sortAndSend() {
     this.messages.sort((a, b) =>
-      a.id > b.id ? 1 : b.id > a.id ? -1 : 0,
+      +a.id > +b.id ? 1 : +b.id > +a.id ? -1 : 0,
     );
 
     this.messageChangedEvent.next(this.messages.slice());
