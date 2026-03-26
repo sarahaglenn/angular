@@ -1,1 +1,6 @@
-<p>technician-item works!</p>
+<a [routerLink]="[technician.id]" routerLinkActive="active" class="list-group-item clearfix" style="margin: 0;">
+  <h4 class="list-group-item-heading pull-left" style="margin: 0;">{{ technician.name }}</h4>
+  <span class="pull-right">
+    <img [src]="technician.imageUrl" alt="{{ technician.name }}" class="img-responsive" style="max-height: 50px">
+  </span>
+</a>

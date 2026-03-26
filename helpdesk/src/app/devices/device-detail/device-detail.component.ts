@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { DeviceStatus } from '../device-status';
 import { Device } from '../device.model';
-import { TechnicianService } from '../../technicians/technician.service';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { DeviceService } from '../device.service';
 
@@ -19,7 +18,6 @@ export class DeviceDetailComponent implements OnInit{
   id: string;
 
   constructor(
-    private techService: TechnicianService,
     private deviceService: DeviceService,
     private router: Router,
     private route: ActivatedRoute

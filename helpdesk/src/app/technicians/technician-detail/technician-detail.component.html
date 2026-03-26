@@ -1,1 +1,22 @@
-<p>technician-detail works!</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>{{ technician?.name }}</h3>
+      </div>
+    </div>
+    <div class="row" style="display: flex; align-items: center;">
+      <div class="col-xs-8">
+        <img [src]="technician?.imageUrl" alt="{{ technician?.name}}" class="img-responsive" style="max-height: 100px;">
+      </div>
+      <div class="col-xs-4 text-right" style="display: flex; justify-content: flex-end; gap: 6px;">
+        <a routerLink="edit" class="btn btn-primary">Edit</a>
+        <a (click)="onDelete()" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <p><strong>Email:</strong> {{ technician?.email }}</p>
+    <p><strong>Phone:</strong> {{ technician?.phone }}</p>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 15px; /* Matches Bootstrap panel padding */
+  padding: 5px 15px;
 }
 
 .button-group {

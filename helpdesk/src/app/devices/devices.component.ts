@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeviceListComponent } from "./device-list/device-list.component";
 import { Device } from './device.model';
-import { TechnicianService } from '../technicians/technician.service';
 import { RouterOutlet } from '@angular/router';
 import { DeviceService } from './device.service';
 

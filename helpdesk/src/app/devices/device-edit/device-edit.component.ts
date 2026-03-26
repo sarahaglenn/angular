@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Device } from '../device.model';
 import { DeviceService } from '../device.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -53,6 +53,6 @@ export class DeviceEditComponent implements OnInit {
       this.deviceService.addDevice(newDevice);
       this.router.navigate(['../', newDevice.id], {relativeTo: this.route});
     }
-    this.onCancel()
+    this.onCancel();
   }
 }
