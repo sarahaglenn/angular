@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+
+      <h4 class="title no-margin">{{device?.name}}</h4>
+
+      <div style="display: flex; gap: 10px;">
+        <a routerLink="edit" class="btn btn-info">Edit</a>
+        <a (click)="onDelete()" class="btn btn-danger">Delete</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <div class="pad-left-right">
+      <p><strong>Status: </strong> {{ device?.status }}</p>
+      <p><strong>Last Serviced: </strong>{{ (device?.lastMaintained | date:'yyyy-MM-dd') || 'n/a'}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form id="device-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control required"
+            [ngModel]=device?.name
+            #name="ngModel"
+            required
+            size="120" max="120">
+        </div>
+      </div>
+      <div *ngIf="!name.valid && name.touched" class="row" style="margin-left: 10px; color: rgb(218, 19, 19);">
+        <p>Please enter a device name.</p>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="status">Status:</label>
+          <input
+            type="text"
+            id="status"
+            name="status"
+            class="form-control required"
+            [ngModel]=device?.status
+            #status="ngModel"
+            required
+            size="120" max="255">
+        </div>
+      </div>
+      <div *ngIf="!status.valid && status.touched" class="row" style="margin-left: 10px; color: rgb(218, 19, 19);">
+        <p>Please select a status.</p>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="lastMaintained">Last Serviced:</label>
+          <input
+            type="text"
+            id="lastMaintained"
+            name="lastMaintained"
+            class="form-control invalid"
+            [ngModel]=device?.lastMaintained
+            #lastMaintained="ngModel"
+            pattern="^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$"
+            size="150" max="255">
+        </div>
+      </div>
+      <div *ngIf="!lastMaintained.valid && lastMaintained.touched" class="row" style="margin-left: 10px; color: rgb(218, 19, 19);">
+        <p>Enter the most recent service date as yyyy-mm-dd.</p>
+      </div>
+
+
+
+      <div *ngIf="(!name.valid && name.touched) || (!status.valid && status.touched)" class="row">
+        <p class="alert alert-danger">The name and status fields are required.</p>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 btn-toolbar">
+          <button [disabled]="!f.valid" class="btn btn-success" type="submit">Save</button>
+          <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
