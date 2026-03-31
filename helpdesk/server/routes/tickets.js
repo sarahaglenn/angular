@@ -6,6 +6,8 @@ const Ticket = require('../models/ticket');
 router.get('/', (req, res) => {
 
   Ticket.find()
+  .populate("device")
+  .populate("assignedTechnician")
   .then(tickets => {
   res.status(200).json({
     ticket: 'Tickets fetched successfully!',

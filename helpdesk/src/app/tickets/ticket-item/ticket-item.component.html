@@ -1,0 +1,22 @@
+<!-- <a class="list-group-item clearfix" role="button">
+  <div class="">
+    <span class="ticketHeader">Date Submitted: {{ ticket.createdAt }}</span>
+    <div class="ticketText">
+      <p><strong>Device: </strong>{{ ticket.device }}</p>
+      <td>
+        <span *ngIf="ticket.assignedTechnician; else unassigned">
+          {{ ticket.assignedTechnician.name }}
+        </span>
+        <ng-template #unassigned>
+          <span class="badge bg-warning text-dark">Awaiting Admin Assignment</span>
+        </ng-template>
+      </td>
+      <p><strong>Status: </strong>{{ ticket.status }}</p>
+      </div>
+  </div>
+</a> -->
+
+<a [routerLink]="[ticket.id]" routerLinkActive="active" class="list-group-item clearfix" style="margin: 0;">
+  <h4 class="list-group-item-heading pull-left" style="margin: 0;">{{ ticket.title }}</h4>
+</a>
+

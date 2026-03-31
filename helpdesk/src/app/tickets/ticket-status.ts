@@ -1,5 +1,6 @@
 export enum TicketStatus {
-  Submitted = 'Submitted',
+  Open = 'Open',
   InProgress = 'In Progress',
   Resolved = 'Resolved',
+  Closed = 'Closed'
 }
