@@ -53,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'dist/helpdesk/browser')));
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
-app.use('/', routes);
+app.use('/api', routes);
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {

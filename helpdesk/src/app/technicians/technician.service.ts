@@ -19,7 +19,7 @@ export class TechnicianService {
       .get<{
         message: String;
         technicians: Technician[];
-      }>('http://localhost:3000/technicians')
+      }>('http://localhost:3000/api/technicians')
       .pipe(
         map((response) => {
           this.technicians = response.technicians || [];
@@ -42,7 +42,7 @@ export class TechnicianService {
       return;
     }
     this.http
-      .delete('http://localhost:3000/technicians/' + technician.id)
+      .delete('http://localhost:3000/api/technicians/' + technician.id)
       .subscribe((response: any) => {
         this.technicians.splice(pos, 1);
         this.sortAndSend();
@@ -58,7 +58,7 @@ export class TechnicianService {
       .post<{
         message: String;
         technician: Technician;
-      }>('http://localhost:3000/technicians', newTechnician, { headers: headers })
+      }>('http://localhost:3000/api/technicians', newTechnician, { headers: headers })
       .subscribe((responseData) => {
         this.technicians.push(responseData.technician);
         this.sortAndSend();
@@ -76,7 +76,7 @@ export class TechnicianService {
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
-      .put('http://localhost:3000/technicians/' + originalTechnician.id, newTechnician, {
+      .put('http://localhost:3000/api/technicians/' + originalTechnician.id, newTechnician, {
         headers: headers,
       })
       .subscribe((response: any) => {

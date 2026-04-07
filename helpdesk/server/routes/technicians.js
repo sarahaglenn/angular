@@ -59,8 +59,9 @@ router.put('/:id', (req, res, next) => {
 
       Technician.updateOne({ id: req.params.id }, technician)
         .then(result => {
-          res.status(204).json({
-            message: 'Technician updated successfully'
+          res.status(200).json({
+            message: 'Technician updated successfully',
+            technician: result
           })
         })
         .catch(error => {

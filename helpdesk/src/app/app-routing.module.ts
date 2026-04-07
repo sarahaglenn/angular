@@ -10,6 +10,7 @@ import { TechnicianEditComponent } from './technicians/technician-edit/technicia
 import { TicketEditComponent } from './tickets/ticket-edit/ticket-edit.component';
 import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
 import { TicketsComponent } from './tickets/tickets.component';
+import { TicketDetailComponent } from './tickets/ticket-detail/ticket-detail.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/tickets', pathMatch: 'full' },
@@ -18,7 +19,7 @@ const appRoutes: Routes = [
     component: TicketsComponent,
     children: [
       { path: 'new', component: TicketEditComponent},
-      { path: ':id', component: DeviceDetailComponent },
+      { path: ':id', component: TicketDetailComponent },
       { path: ':id/edit', component: TicketEditComponent}
     ],
   },
