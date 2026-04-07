@@ -4,11 +4,12 @@ const ticketSchema = mongoose.Schema({
   id: { type: String, required: true },
   title: { type: String, required: true },
   device: { type: mongoose.Schema.Types.ObjectId, ref: 'Device', required: true },
+  issueDescription: { type: String, required: true },
   assignedTechnician: { type: mongoose.Schema.Types.ObjectId, ref: 'Technician', default: null },
   status: {
     type: String,
     required: true,
-    enum: ['Open', 'In-Progress', 'Resolved', 'Closed'],
+    enum: ['Open', 'In Progress', 'Resolved', 'Closed'],
     default: 'Open'
   },
   priority: {

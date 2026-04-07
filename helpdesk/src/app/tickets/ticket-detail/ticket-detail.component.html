@@ -1,1 +1,65 @@
-<p>ticket-detail works!</p>
+<div class="panel panel-default shadow-sm" style="border: 0;">
+
+  <div class="panel-heading" style="background-color: #fff; padding: 15px;">
+    <div class="pull-right">
+      <a routerLink="edit" class="btn btn-info" style="margin-right: 5px;">Edit <i class="bi bi-pencil-square"></i></a>
+      <a (click)="onDelete()" class="btn btn-danger">Delete <i class="bi bi-trash3"></i></a>
+    </div>
+
+    <div style="display: flex; align-items: center;">
+      <h4 style="margin: 0; display: inline-block; font-weight: bold; margin-right: 20px;">
+        {{ ticket?.title }}
+      </h4>
+
+      <span class="badge-pill" [ngClass]="getStatusClass(ticket?.status)" style="margin-right: 10px;">
+        {{ ticket?.status }}
+      </span>
+
+      <span class="badge-pill" [ngClass]="getPriorityClass(ticket?.priority)">
+        {{ ticket?.priority }}
+      </span>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="panel-body" style="padding: 20px;">
+    <div style="margin-bottom: 20px;">
+      <label
+        style="text-transform: uppercase; color: #777; font-size: 12px; font-weight: bold; display: block; margin-bottom: 5px;">
+        <i class="bi bi-laptop"> </i> Device
+      </label>
+      <div style="font-size: 16px;">
+        <strong>{{ ticket?.device?.name }}</strong>
+      </div>
+    </div>
+
+    <div>
+      <label
+        style="text-transform: uppercase; color: #777; font-size: 12px; font-weight: bold; display: block; margin-bottom: 5px;">
+        <i class="bi bi-journal"></i> Description
+      </label>
+      <p style="font-size: 15px; color: #555; line-height: 1.6;">
+        {{ ticket?.issueDescription }}
+      </p>
+    </div>
+    <br>
+    <div>
+      <label
+        style="text-transform: uppercase; color: #777; font-size: 12px; font-weight: bold; display: block; margin-bottom: 5px;">
+        <i class="bi bi-person"></i> Assigned Technician
+      </label>
+      <p style="font-size: 15px; color: #555; line-height: 1.6;">
+        {{ ticket?.assignedTechnician?.name || 'Unassigned'}}
+      </p>
+    </div>
+  </div>
+
+  <div class="panel-footer" style="background-color: #f9f9f9; padding: 10px 20px;">
+    <span style="color: #777; font-size: 12px;">
+      <strong>Reported By:</strong> {{ ticket?.reportedBy }}
+      <span style="margin: 0 10px; color: #ccc;">|</span>
+      <strong>On:</strong> {{ ticket?.createdAt | date:'mediumDate' }}
+    </span>
+  </div>
+</div>

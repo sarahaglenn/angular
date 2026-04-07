@@ -1,110 +1,98 @@
-<!-- <div class="panel panel-default">
-  <div class="panel-body">
-    <form id="document-edit" #form>
-      <div class="row">
-        <div class="col-sm-12 form-group">
-          <label for="title">Title</label>
-          <input type="text" id="title" class="form-control" size="120" max="120" name="title" #title>
-        </div>
-        <div class="col-sm-12 form-group">
-          <label for="description">Description</label>
-          <input type="text" id="description" class="form-control" size="120" max="120" name="description" #description>
-        </div>
-
-        <label for="device">Select Device:</label>
-        <select id="device" formControlName="device" class="form-control">
-          <option value="" disabled>-- Choose a Device --</option>
-
-          <option *ngFor="let dev of devices" [value]="dev._id">
-            {{ dev.name }} ({{ dev.status }})
-          </option>
-        </select>
-
-        <div class="col-sm-12 form-group">
-          <label for="status">Status</label>
-          <input type="text" id="status" class="form-control" max="255" size="120" name="status" #status>
-        </div>
-        <div class="col-sm-12 form-group">
-          <label for="assignedTech">Assigned Technician</label>
-          <input type="text" id="assignedTech" class="form-control" max="255" size="120" name="assignedTech" #assignedTech>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <button class="btn btn-success" type="submit" (click)="onSubmit()">Send</button>
-          <button class="btn btn-danger" type="button" (click)="onClear()">Clear</button>
-        </div>
-      </div>
-    </form>
+<div class="panel panel-default shadow-sm">
+  <div class="panel-heading">
+    <h3 class="panel-title" style="font-weight: bold;">
+      {{ editMode ? 'Edit' : 'New' }} Service Request
+    </h3>
   </div>
-</div>
- -->
 
+  <div class="panel-body" style="padding: 20px;">
+    <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
 
-<div class="container mt-4">
-  <h2>Submit Service Request</h2>
-  <hr>
+      <div class="form-group" [class.has-error]="ticketForm.get('title')?.invalid && ticketForm.get('title')?.touched">
+        <label class="control-label small text-uppercase">Issue Title</label>
+        <input type="text" class="form-control" formControlName="title" placeholder="Summary of the problem">
+        <span class="help-block" *ngIf="ticketForm.get('title')?.invalid && ticketForm.get('title')?.touched">
+          Please provide a short title for this issue.
+        </span>
+      </div>
 
-  <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+      <div class="form-group"
+        [class.has-error]="ticketForm.get('issueDescription')?.invalid && ticketForm.get('issueDescription')?.touched">
+        <label class="control-label small text-uppercase">Description</label>
+        <textarea class="form-control" formControlName="issueDescription" rows="4"
+          placeholder="Detail the issue..."></textarea>
+        <span class="help-block"
+          *ngIf="ticketForm.get('issueDescription')?.invalid && ticketForm.get('issueDescription')?.touched">
+          A description is required so the tech knows what to look for.
+        </span>
+      </div>
 
-    <div class="mb-3">
-      <label for="title" class="form-label">Issue Title</label>
-      <input type="text" id="title" formControlName="title" class="form-control"
-        placeholder="e.g., Printer Jammed or Screen Cracked">
-    </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="control-label small text-uppercase">Status</label>
+            <select formControlName="status" class="form-control">
+              <option *ngFor="let stat of orderedStatuses" [value]="stat">{{ stat }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group"
+            [class.has-error]="ticketForm.get('device')?.invalid && ticketForm.get('device')?.touched">
+            <label class="control-label small text-uppercase">Affected Device</label>
+            <select formControlName="device" class="form-control">
+              <option value="" disabled>-- Select Device --</option>
+              <option *ngFor="let dev of devices" [value]="dev._id">{{ dev.name }}</option>
+            </select>
+            <span class="help-block" *ngIf="ticketForm.get('device')?.invalid && ticketForm.get('device')?.touched">
+              Select a device.
+            </span>
+          </div>
+        </div>
+      </div>
 
-    <div class="mb-3">
-      <label for="device" class="form-label">Affected Device</label>
-      <select id="device" formControlName="device" class="form-select">
-        <option value="" disabled>-- Select a Device from Inventory --</option>
-
-        <option *ngFor="let dev of devices" [value]="dev._id">
-          {{ dev.name }} ({{ dev.status }})
-        </option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Priority Level</label>
-      <div class="d-flex gap-3">
-        <div class="form-check" *ngFor="let p of PriorityLevels | keyvalue">
-          <input class="form-check-input" type="radio" [value]="p.value" formControlName="priority" [id]="p.key">
-          <label class="form-check-label" [for]="p.key">
-            {{ p.value }}
+      <div class="form-group">
+        <label class="control-label small text-uppercase" style="display: block;">Priority Level</label>
+        <div style="padding-top: 5px;">
+          <label class="radio-inline" *ngFor="let p of orderedPriorities">
+            <input type="radio" [value]="p" formControlName="priority"> {{ p }}
           </label>
         </div>
       </div>
-    </div>
 
-    <div class="row mb-3">
-      <div class="col">
-        <label class="form-label text-muted">Reported By</label>
-        <input type="text" [value]="submittedBy" class="form-control" readonly>
+      <hr style="margin: 15px 0;">
+
+      <div class="form-group">
+        <label class="control-label small text-uppercase">Assigned Technician</label>
+        <select formControlName="assignedTechnician" class="form-control">
+          <option value="">-- Unassigned --</option>
+          <option *ngFor="let tech of technicians" [value]="tech._id">{{ tech.name }}</option>
+        </select>
       </div>
-      <div class="col">
-        <label class="form-label text-muted">Date Generated</label>
-        <input type="text" [value]="today | date:'medium'" class="form-control" readonly>
+
+      <div class="well well-sm" style="margin-bottom: 20px; background-color: #fcfcfc;">
+        <div class="row">
+          <div class="col-xs-6">
+            <label class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Reported By</label>
+            <p class="form-control-static" style="padding-top: 0; padding-bottom: 0;">{{ submittedBy }}</p>
+          </div>
+          <div class="col-xs-6">
+            <label class="text-muted small fw-bold text-uppercase" style="font-size: 10px;">Date Created</label>
+            <p class="form-control-static" style="padding-top: 0; padding-bottom: 0;">{{ today | date:'short' }}</p>
+          </div>
+        </div>
       </div>
-    </div>
-    
-    if editMode
-    <div class="mb-3">
-      <label for="status" class="form-label">Ticket Status</label>
-      <select id="status" formControlName="status" class="form-select">
-        <option *ngFor="let stat of statusValues | keyvalue" [value]="stat.value">
-          {{ stat.value }}
-        </option>
-      </select>
-    </div>
 
-    <div class="mt-4">
-      <button type="submit" class="btn btn-primary me-2" [disabled]="ticketForm.invalid">
-        Submit Ticket
-      </button>
-      <button type="button" class="btn btn-outline-secondary" (click)="onClear()">
-        Clear Form
-      </button>
-    </div>
+      <div class="clearfix">
+        <button type="submit" class="btn btn-success pull-left" [disabled]="ticketForm.invalid"
+          style="min-width: 120px;">
+          <span></span> Save Ticket
+        </button>
+        <button type="button" class="btn btn-danger pull-right" (click)="onClear()">
+          Clear
+        </button>
+      </div>
 
-  </form>
+    </form>
+  </div>
 </div>

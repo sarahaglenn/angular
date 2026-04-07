@@ -1,0 +1,45 @@
+
+.badge-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status-open {
+  background-color: #dff0d8;
+  color: #3c763d;
+  border: 1px solid #d6e9c6; }
+
+.status-progress {
+  background-color: #d9edf7;
+  color: #31708f;
+  border: 1px solid #bce8f1; }
+
+.status-resolved {
+  background-color: #f5f5f5;
+  color: #777;
+  border: 1px solid #ddd; }
+
+.status-closed {
+  background-color: #f3e5f5;
+  color: #6a1b9a; 
+  border: 1px solid #d1c4e9;
+}
+
+.priority-high {
+  background-color: #f2dede;
+  color: #a94442;
+  border: 1px solid #ebccd1; }
+
+.priority-medium {
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+  border: 1px solid #faebcc; }
+
+.priority-low {
+  background-color: #f5f5f5;
+  color: #777;
+  border: 1px solid #ddd; }

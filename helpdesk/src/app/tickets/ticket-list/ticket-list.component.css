@@ -1,8 +1,7 @@
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
+.v-center-responsive {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
 }
-.pad-left-right {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
+

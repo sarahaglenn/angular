@@ -7,11 +7,12 @@ export class Ticket {
   constructor(
     public id: string,
     public title: string,
-    public device: Device | string,
-    public status: TicketStatus = TicketStatus.Open,
-    public priority: TicketPriority = TicketPriority.Medium,
+    public device: Device,
+    public issueDescription: string,
+    public status: TicketStatus,
+    public priority: TicketPriority,
     public reportedBy: string,
-    public assignedTechnician?: Technician | string,
+    public assignedTechnician?: Technician,
     public _id?: string,
     public createdAt?: Date,
   ) {}
