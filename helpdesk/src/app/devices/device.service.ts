@@ -18,7 +18,7 @@ export class DeviceService {
     return this.http
       .get<{
         devices: Device[];
-      }>('http://localhost:3000/devices')
+      }>('http://localhost:3000/api/devices')
       .pipe(
         map((response) => {
           this.devices = response.devices || [];
@@ -41,7 +41,7 @@ export class DeviceService {
       return;
     }
     this.http
-      .delete('http://localhost:3000/devices/' + device.id)
+      .delete('http://localhost:3000/api/devices/' + device.id)
       .subscribe((response: any) => {
         this.devices.splice(pos, 1);
         this.sortAndSend();
@@ -56,7 +56,7 @@ export class DeviceService {
     this.http
       .post<{
         device: Device;
-      }>('http://localhost:3000/devices', newDevice, { headers: headers })
+      }>('http://localhost:3000/api/devices', newDevice, { headers: headers })
       .subscribe((responseData) => {
         this.devices.push(responseData.device);
         this.sortAndSend();
@@ -74,7 +74,7 @@ export class DeviceService {
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
-      .put('http://localhost:3000/devices/' + originalDevice.id, newDevice, {
+      .put('http://localhost:3000/api/devices/' + originalDevice.id, newDevice, {
         headers: headers,
       })
       .subscribe((response: any) => {

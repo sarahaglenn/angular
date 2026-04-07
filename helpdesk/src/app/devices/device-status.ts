@@ -1,7 +1,7 @@
 export enum DeviceStatus {
-  Available = 'available',
-  InUse = 'in use',
-  UnderMaintenance = 'under maintenance',
-  Broken = 'broken',
-  Retired = 'retired'
+  Available = 'Available',
+  InUse = 'In Use',
+  UnderMaintenance = 'Under Maintenance',
+  Broken = 'Broken',
+  Retired = 'Retired'
 }

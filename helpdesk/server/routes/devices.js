@@ -53,8 +53,9 @@ router.put('/:id', (req, res, next) => {
 
       Device.updateOne({ id: req.params.id }, device)
         .then(result => {
-          res.status(204).json({
-            message: 'Device updated successfully'
+          res.status(200).json({
+            message: 'Device updated successfully',
+            device: result
           })
         })
         .catch(error => {
