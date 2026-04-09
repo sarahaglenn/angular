@@ -6,6 +6,7 @@ const technicianSchema = mongoose.Schema({
   email: { type: String, required: true },
   phone: { type: String },
   imageUrl: { type: String},
+  expertise: { type: String }
 })
 
 module.exports = mongoose.model('Technician', technicianSchema);

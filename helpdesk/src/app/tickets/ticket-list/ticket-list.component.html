@@ -15,7 +15,19 @@
 
   <div class="panel-body">
     <div class="list-group">
-      <hds-ticket-item *ngFor="let ticketEl of tickets" [ticket]="ticketEl"></hds-ticket-item>
+      <h4 class="list-group-item-heading">Active Requests</h4>
+      <br>
+      <ng-container *ngFor="let ticketEl of tickets">
+        <hds-ticket-item *ngIf="ticketEl.status !== 'Closed' && ticketEl.status !== 'Resolved'" [ticket]="ticketEl"></hds-ticket-item>
+      </ng-container>
     </div>
+    <hr>
+    <div class="list-group">
+      <h4 class="list-group-item-heading">Archived/Resolved Requests</h4>
+      <br>
+      <ng-container *ngFor="let ticketEl of tickets">
+        <hds-ticket-item *ngIf="ticketEl.status === 'Closed' || ticketEl.status === 'Resolved'"
+          [ticket]="ticketEl"></hds-ticket-item>
+      </ng-container>
   </div>
 </div>

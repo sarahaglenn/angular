@@ -46,7 +46,8 @@ export class TechnicianEditComponent implements OnInit {
       form.value['name'],
       form.value['email'],
       form.value['phone'],
-      form.value['imageUrl']
+      form.value['imageUrl'],
+      form.value['expertise'],
     );
     if (this.editMode) {
       this.techService.updateTechnician(this.originalTech, newTech);

@@ -5,6 +5,7 @@ export class Technician {
     public email: string,
     public phone: string,
     public imageUrl: string,
+    public expertise: string,
     public _id?: string,
   ) {}
 }

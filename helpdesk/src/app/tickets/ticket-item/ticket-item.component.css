@@ -1,14 +1,54 @@
-.ticketHeader {
-  background-color: azure;
-  border: solid thin black;
-  border-radius: 10px;
-  padding: 0.4rem;
-  font-size: 1.5rem;
+
+.badge-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
-.ticketText {
-  border-radius: 10px;
-  padding: 5px;
-  margin-top: .25rem;
-  margin-left: 1rem;
-  font-size: 1.5rem;
+
+.status-open {
+  background-color: #dff0d8;
+  color: #3c763d;
+  border: 1px solid #d6e9c6;
+}
+
+.status-progress {
+  background-color: #d9edf7;
+  color: #31708f;
+  border: 1px solid #bce8f1;
+}
+
+.status-resolved {
+  background-color: #f5f5f5;
+  color: #777;
+  border: 1px solid #ddd;
+}
+
+.status-closed {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
+  border: 1px solid #d1c4e9;
+}
+
+.flex-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.ticket-title {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 15px;
+}
+
+.status-badge {
+  flex-shrink: 0;
+  text-align: center;
+  min-width: 100px;
 }

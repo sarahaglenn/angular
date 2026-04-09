@@ -1,5 +1,11 @@
 
-<a [routerLink]="[ticket.id]" routerLinkActive="active" class="list-group-item clearfix" style="margin: 0;">
-  <h4 class="list-group-item-heading pull-left" style="margin: 0;">{{ ticket.title }}</h4>
+<a [routerLink]="[ticket.id]" routerLinkActive="active" class="list-group-item clearfix" style="margin: 0; display: block;">
+  <div class="flex-header">
+    <h4 class="ticket-title">
+      #T{{ticket.id }} {{ ticket.title }}
+    </h4>
+    <span class="badge-pill status-badge" [ngClass]="getStatusClass(ticket?.status)">
+      {{ ticket?.status }}
+    </span>
+  </div>
 </a>
-
